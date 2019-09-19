@@ -67,6 +67,7 @@ describe('Regulador test 1', () => {
         var Adjustment = regulador.measure();
 
         expect(Adjustment.co2).to.equals(-5);
+        
 
     })
 
@@ -80,6 +81,20 @@ describe('Regulador test 1', () => {
         var Adjustment = regulador.measure();
 
         expect(Adjustment.co2).to.equals(0);
+
+    })
+
+    it('Should return Oxygen Adjustment of + 6 and CO2 Adjustment of 0 when Oxygen = 9 and CO2 <= 8',() =>{ 
+
+        sensor.getGasses = () => {
+            return {co2: 6, oxygen: 9};
+        }
+
+        var regulador = new Regulador(sensor);
+        var Adjustment = regulador.measure();
+
+        expect(Adjustment.co2).to.equals(0);
+        expect(Adjustment.oxygen).to.equals(6)
 
     })
 })
